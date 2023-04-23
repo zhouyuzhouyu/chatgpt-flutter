@@ -19,5 +19,5 @@ samples, guidance on mobile development, and a full API reference.
 
 Env.apiKey  需要修改为你自己的openai apikey
 
-- [openai chat api说明](https://platform.openai.com/docs/api-reference/chat)
+- [openai chat api reference](https://platform.openai.com/docs/api-reference/chat)
 - [openai gpt-3.5-turbo](https://platform.openai.com/playground?mode=chat)
