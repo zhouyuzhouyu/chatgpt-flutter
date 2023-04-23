@@ -1,6 +1,8 @@
+import 'package:chatgpt/env/env.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+// import 'package:http/http.dart' as http;
+// import 'dart:convert';
+import 'package:dart_openai/openai.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,28 +18,19 @@ class _MyAppState extends State<MyApp> {
   String responseText = '';
 
   Future<String> generateText(String prompt) async {
-    var response = await http.post(
-      Uri.parse('https://api.openai.com/v1/chat/completions'),
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-        'Authorization':
-            'Bearer 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', // 将 YOUR_API_KEY 替换为你的 API 密钥
-      },
-      body: jsonEncode(<String, dynamic>{
-        'model': 'gpt-3.5-turbo',
-        'message': [
-          {'role': 'user', 'content': prompt}
-        ]
-      }),
+    OpenAI.apiKey = Env.apiKey;
+    OpenAIChatCompletionModel chatCompletion =
+        await OpenAI.instance.chat.create(
+      model: "gpt-3.5-turbo",
+      messages: [
+        OpenAIChatCompletionChoiceMessageModel(
+          content: prompt,
+          role: OpenAIChatMessageRole.user,
+        ),
+      ],
     );
-
-    if (response.statusCode == 200) {
-      var jsonResponse = jsonDecode(response.body);
-      var choices = jsonResponse['choices'][0];
-      return choices['text'].toString();
-    } else {
-      return 'Error';
-    }
+    // print(chatCompletion.toMap());
+    return chatCompletion.choices.first.message.content;
   }
 
   @override
