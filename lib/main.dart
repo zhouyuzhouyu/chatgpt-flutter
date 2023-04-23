@@ -98,30 +98,24 @@ class _ChatPageState extends State<ChatPage> {
 
   Future<String> chatGPT(String prompt) async {
     OpenAI.apiKey = Env.apiKey;
-    OpenAIChatCompletionModel chatCompletion =
-        await OpenAI.instance.chat.create(
-      model: "gpt-3.5-turbo",
-      messages: [
-        OpenAIChatCompletionChoiceMessageModel(
-          content: prompt,
-          role: OpenAIChatMessageRole.user,
-        ),
-      ],
-    );
-    return chatCompletion.choices.first.message.content;
+    var result = "error";
+    try {
+      OpenAIChatCompletionModel chatCompletion =
+          await OpenAI.instance.chat.create(
+        model: "gpt-3.5-turbo",
+        messages: [
+          OpenAIChatCompletionChoiceMessageModel(
+            content: prompt,
+            role: OpenAIChatMessageRole.user,
+          ),
+        ],
+      );
+      if (chatCompletion.choices.first.message.content == "") {
+        result = chatCompletion.choices.first.message.content;
+      }
+    } on RequestFailedException catch (e) {
+      result = e.message;
+    } catch (e) {}
+    return result;
   }
 }
-
-// Future<String> chatGPT(String prompt) async {
-//   OpenAI.apiKey = Env.apiKey;
-//   OpenAIChatCompletionModel chatCompletion = await OpenAI.instance.chat.create(
-//     model: "gpt-3.5-turbo",
-//     messages: [
-//       OpenAIChatCompletionChoiceMessageModel(
-//         content: prompt,
-//         role: OpenAIChatMessageRole.user,
-//       ),
-//     ],
-//   );
-//   return chatCompletion.choices.first.message.content;
-// }
