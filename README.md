@@ -14,3 +14,10 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+##  注意事项
+
+Env.apiKey  需要修改为你自己的openai apikey
+
+- [openai chat api说明](https://platform.openai.com/docs/api-reference/chat)
+- [openai gpt-3.5-turbo](https://platform.openai.com/playground?mode=chat)
