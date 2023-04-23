@@ -36,10 +36,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'OpenAI Chat',
+      title: 'OpenAI Chat/gpt3.5-turbo',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('OpenAI Chat'),
+          title: Text('OpenAI Chat/gpt3.5-turbo'),
         ),
         body: Column(
           children: <Widget>[
