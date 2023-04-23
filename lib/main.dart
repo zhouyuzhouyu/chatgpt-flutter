@@ -110,12 +110,14 @@ class _ChatPageState extends State<ChatPage> {
           ),
         ],
       );
-      if (chatCompletion.choices.first.message.content == "") {
+      if (chatCompletion.choices.first.message.content != "") {
         result = chatCompletion.choices.first.message.content;
       }
     } on RequestFailedException catch (e) {
       result = e.message;
-    } catch (e) {}
+    } catch (e) {
+      result = e.toString();
+    }
     return result;
   }
 }
